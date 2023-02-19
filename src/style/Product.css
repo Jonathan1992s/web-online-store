@@ -1,0 +1,19 @@
+
+.title {
+    text-align: center;
+    text-decoration: dashed;
+}
+
+.card-img{
+    margin-top: 2%;
+    height: 200px;
+    width: 200px;
+}
+
+.card-text-detail {
+    color: #282c34;
+}
+
+.weight-bold {
+    font-weight: bold;
+}

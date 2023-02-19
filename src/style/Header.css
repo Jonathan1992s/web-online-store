@@ -1,0 +1,18 @@
+.main-header {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    color: #fff;
+    background-color: #282c34;
+    gap: 1rem;
+}
+
+.main-logo{
+    color: darkseagreen;
+    font-size:30px
+
+}

@@ -1,0 +1,9 @@
+.card-gap {
+    display: grid;
+    gap: 3rem;
+}
+
+.main-container {
+    color: white;
+
+}

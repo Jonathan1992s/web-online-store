@@ -1,0 +1,24 @@
+.main-menu {
+    background-color: #282c34;
+    border-top: 1px solid rgba(128, 128, 128, 0.38);
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.38);
+
+}
+
+.main-menu ul {
+    align-items: center;
+    margin-top: 6px;
+    display: flex;
+}
+
+.main-menu li {
+    list-style: none;
+    margin-right: 2rem;
+
+}
+
+.main-menu a {
+    color: white;
+    text-decoration: dashed;
+}
