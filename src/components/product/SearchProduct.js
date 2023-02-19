@@ -33,7 +33,7 @@ export const SearchProduct = () => {
                             <i className="fa fa-search"></i>
                         </button>
                         </a>
-                s</div>
+                </div>
             </div>
 
             </div>
