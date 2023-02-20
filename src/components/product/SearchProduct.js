@@ -1,12 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import data from '../../data/searchProducts.json'
 import '../../style/Product.css'
 import {Product} from "./Products";
 import { useLocation } from 'react-router-dom';
-
-
-
-
+import {searchProductUrl} from "../../variables/variables";
 
 export const SearchProduct = () => {
 
@@ -41,13 +37,13 @@ export const ResultSearch = () => {
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const q = params.get('q');
-    const url = 'http://localhost:8762/ms-buscador/products/search'
+
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
         const dataFetch = async () => {
             const data = await (
-                await fetch(url+"?q="+q)
+                await fetch(searchProductUrl+"?q="+q)
             ).json();
             setProducts(data);
             console.log(data)

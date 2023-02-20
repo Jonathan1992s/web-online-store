@@ -1,12 +1,10 @@
 
 import React, {useCallback, useEffect, useState} from "react";
 import '../../style/Order.css'
+import {ordersUrl, username} from "../../variables/variables";
 
 
 export const Orders = () => {
-
-    const url = 'http://localhost:8762/ms-operador/orders'
-    const username = 'unir'
 
     const key = 'order'
     const [orderList, setList] = useState([]);
@@ -21,7 +19,7 @@ export const Orders = () => {
     const total = orderList.reduce((acc, product) => acc + parseFloat(product.price), 0);
 
     const handleClick = async () => {
-        const response = await fetch(url, {
+        const response = await fetch(ordersUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

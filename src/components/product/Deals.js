@@ -2,19 +2,16 @@
 import React, {useEffect, useState} from "react";
 import '../../style/Home.css'
 import {Product} from "./Products";
+import {dealsUrl, paramKeyEnableDiscount, paramValueEnableDiscount} from "../../variables/variables"
 
 
 export const Deals = () => {
 
-    const url = 'http://localhost:8762/ms-buscador/products/'
-    const paramKeyEnableDiscount = "enable-discount"
-    const paramValueEnableDiscount = true
     const [offertProducts, setOffertProducts] = useState([]);
-
     useEffect(() => {
         const dataFetch = async () => {
             const data = await (
-                await fetch(url+"?"+paramKeyEnableDiscount+"="+paramValueEnableDiscount)
+                await fetch(dealsUrl+"?"+paramKeyEnableDiscount+"="+paramValueEnableDiscount)
             ).json();
             setOffertProducts(data);
             console.log(data)

@@ -1,17 +1,14 @@
-
-import data from '../../data/lastOrders.json'
 import '../../style/PreviusOrder.css'
 import React, {useEffect, useState} from "react";
+import {previusOrdersUrl, username} from "../../variables/variables";
 
 
 export const PreviusOrders = () => {
-    const username = 'unir'
-    const url = 'http://localhost:8762/ms-operador/orders/'
     const [previusOrders, setPreviusOrders] = useState([]);
     useEffect(() => {
         const dataFetch = async () => {
             const data = await (
-                await fetch(url+username)
+                await fetch(previusOrdersUrl+username)
             ).json();
             setPreviusOrders(data);
             console.log(data)

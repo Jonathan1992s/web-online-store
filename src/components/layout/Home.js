@@ -1,7 +1,6 @@
 
 import React, {useEffect, useState} from "react";
 import '../../style/Home.css'
-import data from '../../data/products.json'
 import {Product} from "../product/Products";
 
 export const Home = () => {

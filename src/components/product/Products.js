@@ -1,6 +1,7 @@
 import {Link, useParams} from "react-router-dom"
 import '../../style/Product.css'
 import React, {useCallback, useEffect, useState} from "react";
+import {productsUrl} from "../../variables/variables";
 
 
 export const Product = ({product}) => {
@@ -94,13 +95,12 @@ export const Product = ({product}) => {
 export const ProductDetail = () => {
     const {id}  = useParams()
     const key = 'order'
-    const url = 'http://localhost:8762/ms-buscador/products/'
     const [product, setProducts] = useState([]);
 
     useEffect(() => {
         const dataFetch = async () => {
             const data = await (
-                await fetch(url+id)
+                await fetch(productsUrl+id)
             ).json();
             setProducts(data);
             console.log(data)
