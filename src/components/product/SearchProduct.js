@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import data from '../../data/searchProducts.json'
 import '../../style/Product.css'
 import {Product} from "./Products";
@@ -16,10 +16,6 @@ export const SearchProduct = () => {
         console.log(q)
     };
 
-  /*  const filterList = list => {
-        return list.filter(item => item.toLowerCase().includes(searchValue.toLowerCase()));
-    };
-*/
     return (
         <>
             <div className="">
@@ -45,12 +41,28 @@ export const ResultSearch = () => {
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const q = params.get('q');
+    const url = 'http://localhost:8762/ms-buscador/products/search'
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        const dataFetch = async () => {
+            const data = await (
+                await fetch(url+"?q="+q)
+            ).json();
+            setProducts(data);
+            console.log(data)
+        };
+
+        dataFetch();
+    }, []);;
+
+
     return (
         <div className="main-container">
             <h1>Resultados busqueda para: {q} </h1>
             <div className="container card-gap">
                 {
-                    data.map((product) => (
+                    products.map((product) => (
                         <Product key={product.id} product={product}/>
                     ))
                 }

@@ -1,5 +1,4 @@
 import {Link, useParams} from "react-router-dom"
-import data from '../../data/products.json'
 import '../../style/Product.css'
 import React, {useCallback, useEffect, useState} from "react";
 
@@ -46,7 +45,7 @@ export const Product = ({product}) => {
             <div className="col" >
                 <div className="card mx-3">
                     <div className="text-center">
-                        <img className="card-img " src={`/products/${product.id}.png`} alt={product.name}></img>
+                        <img className="card-img " src={`/products/1.png`} alt={product.name}></img>
                     </div>
                 </div>
             </div>
@@ -95,13 +94,20 @@ export const Product = ({product}) => {
 export const ProductDetail = () => {
     const {id}  = useParams()
     const key = 'order'
-    const [ product, setProduct ] = useState({})
+    const url = 'http://localhost:8762/ms-buscador/products/'
+    const [product, setProducts] = useState([]);
 
     useEffect(() => {
-        setProduct(
-            data[id-1]
-        )
-    }, [id])
+        const dataFetch = async () => {
+            const data = await (
+                await fetch(url+id)
+            ).json();
+            setProducts(data);
+            console.log(data)
+        };
+
+        dataFetch();
+    }, []);;
 
     const saveOrder = useCallback((product) => {
         let orderList = JSON.parse(localStorage.getItem(key));
@@ -139,7 +145,6 @@ export const ProductDetail = () => {
     }, []);
     return <>
 
-
         <div className="card ">
             <div className="card-header text-center">
                 {product.name}
@@ -148,7 +153,7 @@ export const ProductDetail = () => {
                 <h5 className="card-title">{product.name}</h5>
                 <div className="row">
                     <div className="col">
-                        <img className="card-img-detail" src={`/products/${id}.png`} alt=""></img>
+                        <img className="card-img-detail" src={`/products/1.png`} alt=""></img>
                     </div>
 
                     <div className="col">
@@ -160,10 +165,10 @@ export const ProductDetail = () => {
                                 {product.stock}
                             </div>
                             <div className="col-3 weight-bold">
-                                Usados
+                                Descuento
                             </div>
                             <div className="col-9">
-                                {product.stockUsed}
+                                {product.discount*100}%
                             </div>
                             <div className="col-3 weight-bold">
                                 Detalle

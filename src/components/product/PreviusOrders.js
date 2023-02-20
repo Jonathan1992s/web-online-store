@@ -1,10 +1,24 @@
 
 import data from '../../data/lastOrders.json'
 import '../../style/PreviusOrder.css'
-import React from "react";
+import React, {useEffect, useState} from "react";
 
 
 export const PreviusOrders = () => {
+    const username = 'unir'
+    const url = 'http://localhost:8762/ms-operador/orders/'
+    const [previusOrders, setPreviusOrders] = useState([]);
+    useEffect(() => {
+        const dataFetch = async () => {
+            const data = await (
+                await fetch(url+username)
+            ).json();
+            setPreviusOrders(data);
+            console.log(data)
+        };
+
+        dataFetch();
+    }, []);;
 
     return (
         <div >
@@ -12,7 +26,7 @@ export const PreviusOrders = () => {
                 <h1>Compras Anteriores</h1>
                     <div className='order'>
                         {
-                        data.map(previusOrders => (
+                            previusOrders.map(previusOrders => (
                             <div className="order-container">
                                 <p><span className="label">Fecha: </span>{previusOrders.date}</p>
                                 <p><span className="label">Total: </span>$ {previusOrders.total}</p>
