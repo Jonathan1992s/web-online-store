@@ -2,19 +2,36 @@
 import React, {useEffect, useState} from "react";
 import '../../style/Home.css'
 import {Product} from "../product/Products";
+import {productsUrl} from "../../variables/variables";
 
 export const Home = () => {
 
-    const url = 'http://localhost:8762/ms-buscador/products'
+    //const url = 'http://localhost:8762/products'
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
         const dataFetch = async () => {
             const data = await (
-                await fetch(url)
-            ).json();
-            setProducts(data);
-            console.log(data)
+                await fetch(productsUrl).then((response) => {
+                    switch(response.status){
+                        case 500:
+                           window.alert("¡Un error ha ocurrido!")
+                            break;
+                        case 404:
+                            window.alert("¡No se encontraron registros!")
+                            break;
+                        default:
+                            return response.json();
+                    }
+
+            }).catch()
+            );
+            if (data!=null)
+            {
+                setProducts(data);
+            }
+
+
         };
 
         dataFetch();

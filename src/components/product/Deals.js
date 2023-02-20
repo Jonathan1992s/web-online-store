@@ -11,10 +11,25 @@ export const Deals = () => {
     useEffect(() => {
         const dataFetch = async () => {
             const data = await (
-                await fetch(dealsUrl+"?"+paramKeyEnableDiscount+"="+paramValueEnableDiscount)
-            ).json();
-            setOffertProducts(data);
-            console.log(data)
+                await fetch(dealsUrl+"?"+paramKeyEnableDiscount+"="+paramValueEnableDiscount).then((response) => {
+                    switch(response.status){
+                        case 500:
+                            window.alert("¡Un error ha ocurrido!")
+                            break;
+                        case 404:
+                            window.alert("¡No se encontraron registros!")
+                            break;
+                        default:
+                            return response.json();
+                    }
+
+                }).catch()
+            );
+            if (data!=null)
+            {
+                setOffertProducts(data);
+            }
+
         };
 
         dataFetch();

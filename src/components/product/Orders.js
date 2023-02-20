@@ -16,7 +16,7 @@ export const Orders = () => {
         }
         setList(orders);
     }, []);
-    const total = orderList.reduce((acc, product) => acc + parseFloat(product.price), 0);
+    const total = orderList.reduce((acc, product) => acc + parseFloat( product.quantity*( product.enableDiscount ? (product.price-product.price* (product.discount)) : product.price)), 0);
 
     const handleClick = async () => {
         const response = await fetch(ordersUrl, {
@@ -27,15 +27,27 @@ export const Orders = () => {
             body: JSON.stringify({
                 "client": username,
                 "date": new Date(),
-                "total": 600.0,
+                "total": total,
                 "products": orderList
             })
-        });
+        }).then((response) => {
+            switch(response.status){
+                case 500:
+                    window.alert("¡Un error ha ocurrido!")
+                    break;
+                case 404:
+                    window.alert("¡No se encontraron registros!")
+                    break;
+                default:
+                    return response.json();
+            }
+
+        }).catch();
         const responseData = await response.json();
         console.log(responseData)
         localStorage.removeItem(key);
         setList([])
-        alert("Compra realizada con exito")
+        alert("Compra realizada con éxito")
     }
 
     return (
@@ -47,19 +59,20 @@ export const Orders = () => {
                         <table id="orders">
                             <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Nombre</th>
                                 <th>Precio</th>
                                 <th>Cantidad</th>
+                                <th>Total</th>
                             </tr>
                             </thead>
                             <tbody>
                             {orderList.map(item => (
                                 <tr key={item.id}>
-                                    <td>{item.id}</td>
+
                                     <td>{item.name}</td>
                                     <td>{item.price}</td>
                                     <td>{item.quantity}</td>
+                                    <td>{(item.price*item.quantity).toFixed(2)}</td>
                                 </tr>
                             ))}
                             </tbody>
