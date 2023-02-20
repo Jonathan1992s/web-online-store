@@ -43,10 +43,11 @@ export const Orders = () => {
             }
 
         }).catch();
-        const responseData = await response.json();
-        console.log(responseData)
         localStorage.removeItem(key);
         setList([])
+        const responseData = await response.json();
+        console.log(responseData)
+
         alert("Compra realizada con éxito")
     }
 
