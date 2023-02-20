@@ -1,3 +1,21 @@
+
+
+# Docker
+
+Crear imagen
+
+```bash
+  docker build -t unir-online-store:latest .
+```
+
+Ejecutar imagen
+
+```bash
+  docker run -p 80:80 unir-online-store:latest
+```
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
