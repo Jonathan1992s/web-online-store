@@ -13,7 +13,7 @@ export const Product = ({product}) => {
             orderList.push({
                 id: product.id,
                 name: product.name,
-                price: product.price.toFixed(2),
+                price: product.enableDiscount===true ? (product.price-product.price* (product.discount)).toFixed(2) : product.price.toFixed(2),
                 quantity: 1
         })
             localStorage.setItem(key,JSON.stringify(orderList))
@@ -30,7 +30,7 @@ export const Product = ({product}) => {
                 updateOrderList.push({
                     id: product.id,
                     name: product.name,
-                    price: product.price.toFixed(2),
+                    price: product.enableDiscount===true ? (product.price-product.price* (product.discount)).toFixed(2) : product.price.toFixed(2),
                     quantity: 1
                 })
             }
@@ -46,7 +46,9 @@ export const Product = ({product}) => {
             <div className="col" >
                 <div className="card mx-3">
                     <div className="text-center">
-                        <img className="card-img " src={`/products/1.png`} alt={product.name}></img>
+                        <img className="card-img " src={`/products/${product.imageUrl}.png`}
+                             onError={(e)=>{e.target.onerror = null; e.target.src="/products/sin-imagen.png"}}
+                             alt={product.name}></img>
                     </div>
                 </div>
             </div>
@@ -74,12 +76,40 @@ export const Product = ({product}) => {
                         <div className="col-9">
                             {product.category}
                         </div>
+                        {product.enableDiscount ? (
+                    <div className="row">
                         <div className="col-3  weight-bold">
-                            Precio
+                            Precio Anterior
                         </div>
-                        <div className="col-9">
+                        <div className="col-9 old-price">
                             $ {product.price.toFixed(2)}
                         </div>
+                        <div className="col-3  weight-bold">
+                            Precio Actual
+                        </div>
+                        <div className="col-6">
+                            $ {(product.price-product.price* (product.discount)).toFixed(2)}
+                        </div>
+
+                            <div  className="col-3 discount" >
+                                Descuento
+                                <h2>{product.discount*100}%</h2>
+
+                            </div>
+
+                    </div>  ) :
+                            <div className="row">
+                                <div className="col-3  weight-bold">
+                                    Precio
+                                </div>
+                                <div className="col-9">
+                                    $ {product.price.toFixed(2)}
+                                </div>
+                            </div>
+                            }
+
+
+
                     </div>
                 </div>
                 <div className="card-footer text-muted text-center">
@@ -100,8 +130,20 @@ export const ProductDetail = () => {
     useEffect(() => {
         const dataFetch = async () => {
             const data = await (
-                await fetch(productsUrl+id)
-            ).json();
+                await fetch(productsUrl+id).then((response) => {
+                    switch(response.status){
+                        case 500:
+                            window.alert("¡Un error ha ocurrido!")
+                            break;
+                        case 404:
+                            window.alert("¡No se encontraron registros!")
+                            break;
+                        default:
+                            return response.json();
+                    }
+
+                })
+            );
             setProducts(data);
             console.log(data)
         };
@@ -116,7 +158,7 @@ export const ProductDetail = () => {
             orderList.push({
                 id: product.id,
                 name: product.name,
-                price: product.price.toFixed(2),
+                price: product.enableDiscount ? (product.price-product.price* (product.discount)).toFixed(2) : product.price.toFixed(2),
                 quantity: 1
             })
             localStorage.setItem(key,JSON.stringify(orderList))
@@ -133,7 +175,7 @@ export const ProductDetail = () => {
                 updateOrderList.push({
                     id: product.id,
                     name: product.name,
-                    price: product.price.toFixed(2),
+                    price: product.enableDiscount===true ? (product.price-product.price* (product.discount)).toFixed(2) : product.price.toFixed(2),
                     quantity: 1
                 })
             }
@@ -153,7 +195,9 @@ export const ProductDetail = () => {
                 <h5 className="card-title">{product.name}</h5>
                 <div className="row">
                     <div className="col">
-                        <img className="card-img-detail" src={`/products/1.png`} alt=""></img>
+                        <img className="card-img " src={`/products/${product.imageUrl}.png`}
+                             onError={(e)=>{e.target.onerror = null; e.target.src="/products/sin-imagen.png"}}
+                             alt={product.name}></img>
                     </div>
 
                     <div className="col">
@@ -188,12 +232,16 @@ export const ProductDetail = () => {
                             <div className="col-9">
                                 {product.category}
                             </div>
-                            <div className="col-3  weight-bold">
-                                Precio
+
+                            <div className="row">
+                                <div className="col-3  weight-bold">
+                                    Precio
+                                </div>
+                                <div className="col-9">
+                                    $ {product.price}
+                                </div>
                             </div>
-                            <div className="col-9">
-                                $ {product.price}
-                            </div>
+
                         </div>
                         <button onClick={() => saveOrder(product)} className="btn btn-primary">Agregar al Carrito</button>
                     </div>

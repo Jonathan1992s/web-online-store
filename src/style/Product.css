@@ -17,3 +17,11 @@
 .weight-bold {
     font-weight: bold;
 }
+.old-price{
+    text-decoration:line-through;
+}
+.discount {
+    font-weight: bold;
+    color: crimson;
+
+}

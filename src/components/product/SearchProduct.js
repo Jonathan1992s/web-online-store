@@ -43,10 +43,26 @@ export const ResultSearch = () => {
     useEffect(() => {
         const dataFetch = async () => {
             const data = await (
-                await fetch(searchProductUrl+"?q="+q)
-            ).json();
-            setProducts(data);
-            console.log(data)
+                await fetch(searchProductUrl+"?q="+q).then((response) => {
+                    switch(response.status){
+                        case 500:
+                            window.alert("¡Un error ha ocurrido!")
+                            break;
+                        case 404:
+                            window.alert("¡No se encontraron registros!")
+                            break;
+                        default:
+                            return response.json();
+                    }
+
+                }).catch()
+            );
+            if (data!=null)
+            {
+                setProducts(data);
+            }
+
+
         };
 
         dataFetch();

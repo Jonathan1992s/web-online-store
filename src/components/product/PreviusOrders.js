@@ -8,10 +8,25 @@ export const PreviusOrders = () => {
     useEffect(() => {
         const dataFetch = async () => {
             const data = await (
-                await fetch(previusOrdersUrl+username)
-            ).json();
-            setPreviusOrders(data);
-            console.log(data)
+                await fetch(previusOrdersUrl+username).then((response) => {
+                    switch(response.status){
+                        case 500:
+                            window.alert("¡Un error ha ocurrido!")
+                            break;
+                        case 404:
+                            window.alert("¡No se encontraron registros!")
+                            break;
+                        default:
+                            return response.json();
+                    }
+
+                }).catch()
+            );
+            if (data!=null)
+            {
+                setPreviusOrders(data);
+            }
+
         };
 
         dataFetch();
