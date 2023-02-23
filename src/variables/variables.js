@@ -5,19 +5,19 @@ const host = 'http://localhost:8762/'
 export const username = 'unir'
 
 // deals
-export const dealsUrl = host + 'ms-buscador/products/'
+export const dealsUrl = 'https://unir-ms-buscador.herokuapp.com/products/'
 export const paramKeyEnableDiscount = "enable-discount"
 export const paramValueEnableDiscount = true
 
 // Orders
-export const ordersUrl = host +'ms-operador/orders'
+export const ordersUrl = 'https://unir-ms-operador.herokuapp.com/orders'
 
 // Previus Orders
-export const previusOrdersUrl = host + 'ms-operador/orders/'
+export const previusOrdersUrl ='https://unir-ms-operador.herokuapp.com/orders/'
 
 // Products
-export const productsUrl = host + 'ms-buscador/products/'
+export const productsUrl =  'https://unir-ms-buscador.herokuapp.com/products/'
 
 // Search
 
-export const searchProductUrl = host + 'ms-buscador/products/search'
+export const searchProductUrl =  'https://unir-ms-buscador.herokuapp.com/products/search'
