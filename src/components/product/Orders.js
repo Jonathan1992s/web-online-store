@@ -19,7 +19,7 @@ export const Orders = () => {
     const total = orderList.reduce((acc, product) => acc + parseFloat( product.quantity*( product.enableDiscount ? (product.price-product.price* (product.discount)) : product.price)), 0);
 
     const handleClick = async () => {
-        const response = await fetch(ordersUrl, {
+        const response = await fetch(ordersUrl,{mode: 'no-cors'}, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
