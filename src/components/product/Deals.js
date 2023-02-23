@@ -11,7 +11,7 @@ export const Deals = () => {
     useEffect(() => {
         const dataFetch = async () => {
             const data = await (
-                await fetch(dealsUrl+"?"+paramKeyEnableDiscount+"="+paramValueEnableDiscount,{mode: 'no-cors'}).then((response) => {
+                await fetch(dealsUrl+"?"+paramKeyEnableDiscount+"="+paramValueEnableDiscount).then((response) => {
                     switch(response.status){
                         case 500:
                             window.alert("¡Un error ha ocurrido!")

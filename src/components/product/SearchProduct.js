@@ -43,7 +43,7 @@ export const ResultSearch = () => {
     useEffect(() => {
         const dataFetch = async () => {
             const data = await (
-                await fetch(searchProductUrl+"?q="+q,{mode: 'no-cors'}).then((response) => {
+                await fetch(searchProductUrl+"?q="+q).then((response) => {
                     switch(response.status){
                         case 500:
                             window.alert("¡Un error ha ocurrido!")
